@@ -8,7 +8,7 @@ import {
   tool,
 } from 'ai';
 import { z } from 'zod';
-import { customModel, imageGenerationModel } from '..';
+import { customModel } from '..';
 import { codePrompt } from '../prompts';
 import { saveDocument } from '@/lib/db/queries';
 import { Session } from 'next-auth';
@@ -110,20 +110,21 @@ export const createDocument = ({
 
         dataStream.writeData({ type: 'finish', content: '' });
       } else if (kind === 'image') {
-        const { image } = await experimental_generateImage({
-          model: imageGenerationModel,
-          prompt: title,
-          n: 1,
-        });
+        throw new Error('Image generation is not supported yet');
+        // const { image } = await experimental_generateImage({
+        //   model: imageGenerationModel,
+        //   prompt: title,
+        //   n: 1,
+        // });
 
-        draftText = image.base64;
+        // draftText = image.base64;
 
-        dataStream.writeData({
-          type: 'image-delta',
-          content: image.base64,
-        });
+        // dataStream.writeData({
+        //   type: 'image-delta',
+        //   content: image.base64,
+        // });
 
-        dataStream.writeData({ type: 'finish', content: '' });
+        // dataStream.writeData({ type: 'finish', content: '' });
       }
 
       if (session.user?.id) {

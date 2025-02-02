@@ -10,7 +10,7 @@ import { Model } from '../models';
 import { Session } from 'next-auth';
 import { z } from 'zod';
 import { getDocumentById, saveDocument } from '@/lib/db/queries';
-import { customModel, imageGenerationModel } from '..';
+import { customModel } from '..';
 import { updateDocumentPrompt } from '../prompts';
 
 interface UpdateDocumentProps {
@@ -110,20 +110,21 @@ export const updateDocument = ({
 
         dataStream.writeData({ type: 'finish', content: '' });
       } else if (document.kind === 'image') {
-        const { image } = await experimental_generateImage({
-          model: imageGenerationModel,
-          prompt: description,
-          n: 1,
-        });
+        throw new Error('Image generation is not supported yet');
+        // const { image } = await experimental_generateImage({
+        //   model: imageGenerationModel,
+        //   prompt: description,
+        //   n: 1,
+        // });
 
-        draftText = image.base64;
+        // draftText = image.base64;
 
-        dataStream.writeData({
-          type: 'image-delta',
-          content: image.base64,
-        });
+        // dataStream.writeData({
+        //   type: 'image-delta',
+        //   content: image.base64,
+        // });
 
-        dataStream.writeData({ type: 'finish', content: '' });
+        // dataStream.writeData({ type: 'finish', content: '' });
       }
 
       if (session.user?.id) {

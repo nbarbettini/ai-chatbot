@@ -14,5 +14,5 @@ export const customModel = (apiIdentifier: string) => {
   });
 };
 
-const imageModel = togetherAI.imageModel!('black-forest-labs/FLUX.1.1-pro');
-export const imageGenerationModel = imageModel;
+// const imageModel = togetherAI.imageModel!('black-forest-labs/FLUX.1.1-pro');
+// export const imageGenerationModel = imageModel;
