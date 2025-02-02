@@ -87,20 +87,20 @@ export async function POST(request: Request) {
         model: customModel(model.apiIdentifier),
         system: systemPrompt,
         messages,
-        maxSteps: 5,
-        experimental_activeTools: allTools,
+        maxSteps: 1,
+        //experimental_activeTools: allTools,
         experimental_transform: smoothStream({ chunking: 'word' }),
         experimental_generateMessageId: generateUUID,
-        tools: {
-          getWeather,
-          createDocument: createDocument({ session, dataStream, model }),
-          updateDocument: updateDocument({ session, dataStream, model }),
-          requestSuggestions: requestSuggestions({
-            session,
-            dataStream,
-            model,
-          }),
-        },
+        // tools: {
+        //   getWeather,
+        //   createDocument: createDocument({ session, dataStream, model }),
+        //   updateDocument: updateDocument({ session, dataStream, model }),
+        //   requestSuggestions: requestSuggestions({
+        //     session,
+        //     dataStream,
+        //     model,
+        //   }),
+        // },
         onFinish: async ({ response }) => {
           if (session.user?.id) {
             try {
